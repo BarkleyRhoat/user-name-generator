@@ -17,8 +17,9 @@ User story: As a user, I want to click a third button that generates a random SV
 ### Feature 2 Acceptance Criteria
 
 - A third button is displayed on the page for the svg generation
-- Clicking the button fetches a random SVG avatar from the DiceBear API
-- The generated avatar is paired witht he current generated username
+- When each button is clicked it is disabled and enabled when all three buttons generate are clicked it resets
+- Clicking the button fetches a created SVG avatar from the DiceBear API
+- The generated avatar is paired with the current generated username
 
 ## Feature 3 - Display Username and Avatar
 
