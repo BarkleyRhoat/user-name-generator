@@ -1,0 +1,52 @@
+# Stories
+
+## Feature 1 - Generate Random Names Buttons
+
+User story: As a user, I want to click two buttons that each fetch a random word from the Random Word API so that the two words are concatenated into a single username string.
+
+### Feature 1 Acceptance Criteria
+
+- Two buttons are displayed on the page for name generation
+- Each button fetches a random word from the Random Word API
+- The two words are concatenated into a single string to form a username
+
+## Feature 2 - Generate Random Avatar
+
+User story: As a user, I want to click a third button that generates a random SVG avatar from the DiceBear API so that the avatar appears next to my generated username.
+
+### Feature 2 Acceptance Criteria
+
+- A third button is displayed on the page for the svg generation
+- Clicking the button fetches a random SVG avatar from the DiceBear API
+- The generated avatar is paired witht he current generated username
+
+## Feature 3 - Display Username and Avatar
+
+User story: As a user, I want to see my generated username and avatar displayed in a card on the page so that I can view the names created.
+
+### Feature 3 Acceptance Criteria
+
+- A generated names card is visible on the page
+- Each generated name and its avatar are rendered inside the card
+- New entries are added to the card each time a name/avatar is generated
+
+## Feature 4 - Save Username and Avatar
+
+User story: As a user, I want to click on a username in the generated names card so that it is saved to a JSON server and displayed in a separate saved names card.
+
+### Feature 4 Acceptance Criteria
+
+- A local JSON server is set up to store saved names and avatars
+- Each name in the generated names card is clickable
+- Clicking a name sends the username and avatar data to the JSON server
+- Saved names are saved in the server and shown on page load
+- The save names card is displayed seperately fromt he generated names card
+
+## Feature 5 - Saved Names Interactions
+
+User story: As a user, I want to hover over a name to see an enlarged version of its avatar, and click on a  name to move it to the top of the saved name card, so that I can order my favorites.
+
+### Feature 5 Acceptance Criteria
+
+- Hovering over a saved name enlarges its avatar
+- Clicking a saved name moves it to the top of the saved names card
