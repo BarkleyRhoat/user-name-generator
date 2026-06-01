@@ -16,21 +16,21 @@ const nounOptions = {
 let currentAdj = "";
 let currentNoun = "";
 
-const generateAdj = document.querySelector(".adjBtn");
-generateAdj.addEventListener("click", () => {
-  currentAdj = generateSlug(1, {
-    categories: adjOptions.categories,
-    partsOfSpeech: adjOptions.partsOfSpeech,
-  });
-  console.log("Adjective:", currentAdj);
-  console.log("Username:", `${currentAdj} ${currentNoun}`);
-});
-const generateNoun = document.querySelector(".nounBtn");
-generateNoun.addEventListener("click", () => {
-  currentNoun = generateSlug(1, {
-    categories: nounOptions.categories,
-    partsOfSpeech: nounOptions.partsOfSpeech,
-  });
-  console.log("Noun:", currentNoun);
-  console.log("Username:", `${currentAdj} ${currentNoun}`);
-});
+function generateWord(btn, options, type) { 
+  document.querySelector(btn).addEventListener("click", () => {
+    const word = generateSlug(1, {
+      categories: options.categories,
+      partsOfSpeech: options.partsOfSpeech,
+    })
+
+    if (type === "adjective") {
+      currentAdj = word;
+    } else if (type === 'noun') {
+      currentNoun = word;
+    }
+    console.log("Username:", `${currentAdj} ${currentNoun}`);
+  })
+}
+generateWord(".adjBtn", adjOptions, 'adjective');
+generateWord(".nounBtn", nounOptions, 'noun');
+
