@@ -2,12 +2,12 @@
 
 ## Feature 1 - Generate Random Names Buttons
 
-User story: As a user, I want to click two buttons that each fetch a random word from the Random Word API so that the two words are concatenated into a single username string.
+User story: As a user, I want to click two buttons that each get a random word from the random-word-slugs package so that the two words are concatenated into a single username string.
 
 ### Feature 1 Acceptance Criteria
 
 - Two buttons are displayed on the page for name generation
-- Each button fetches a random word from the Random Word API
+- Each button gets a random word from the npm package random-word-slugs
 - The two words are concatenated into a single string to form a username
 
 ## Feature 2 - Generate Random Avatar
