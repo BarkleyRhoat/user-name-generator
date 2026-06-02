@@ -26,12 +26,40 @@ function checkAndReset() {
       noun: currentNoun,
       avatar: currentAvatar,
     });
+
     const resultsContainer = document.getElementById("results");
     const entryP = document.createElement("p");
     entryP.textContent = `${currentAdj}${currentNoun}`;
     entryP.insertAdjacentHTML("beforeend", currentAvatar);
+    const savedAdj = currentAdj;
+    const savedNoun = currentNoun;
+    const savedAvatar = currentAvatar;
+    entryP.addEventListener("click",(e) => {
+        const savedContainer = document.getElementById("savedResults");
+        const savedP = document.createElement("p");
+        savedP.textContent = `${savedAdj}${savedNoun}`;
+        savedP.insertAdjacentHTML("beforeend", savedAvatar);
+        savedContainer.appendChild(savedP);
 
+        fetch("http://localhost:3000/usernames", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            adjective: savedAdj,
+            noun: savedNoun,
+            avatar: savedAvatar,
+            fullName: `${savedAdj}${savedNoun}`,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Saved:", data));
+      },
+      { once: true },
+    );
     resultsContainer.appendChild(entryP);
+
     reset();
   }
 }
@@ -56,7 +84,7 @@ function generateWord(btn, options, type) {
     if (type === "adjective") {
       currentAdj = word;
     } else if (type === "noun") {
-      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1); 
+      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1);
     }
     btnSelector.disabled = true;
     checkAndReset();
@@ -67,7 +95,9 @@ generateWord(".nounBtn", nounOptions, "noun");
 
 const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
-  fetch(`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,)
+  fetch(
+    `https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
+  )
     .then((res) => res.text())
     .then((svg) => {
       currentAvatar = svg;

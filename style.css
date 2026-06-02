@@ -18,27 +18,32 @@ body {
   cursor: pointer;
 }
 
-#resultscontainer {
+#resultsContainer,
+#savedContainer {
   display: block;
   gap: 2rem;
 }
 
-#listHeader {
+#listHeader,
+#savedHeader {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-#results {
+#results,
+#savedResults {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  cursor: pointer;
 }
 
-#results p {
+#results p,
+#savedResults p {
   font-weight: bold;
   background: white;
   border-radius: 8px;
