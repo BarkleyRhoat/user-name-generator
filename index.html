@@ -1,25 +1,26 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-  <title>Username Generator</title>
-  <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-  <div class="appContainer">
-    <h1>Username Generator</h1>
-    <div>
-    <button class="adjBtn" id="generateBtn">Generate Adjective</button>
-    <button class="nounBtn" id="generateBtn">Generate Noun</button>
-    <button class="avatarBtn" id="generateBtn">Generate Avatar</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Username Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="appContainer">
+      <h1>Username Generator</h1>
+      <div>
+        <button class="adjBtn" id="generateBtn">Get Adjective</button>
+        <button class="nounBtn" id="generateBtn">Get Noun</button>
+        <button class="avatarBtn" id="generateBtn">Get Avatar</button>
+      </div>
+      <div id="resultsContainer">
+        <h2 id="listHeader">Usernames</h2>
+        <div id="results"></div>
+      </div>
+      <div id="savedResults"></div>
     </div>
-    <div id="results"></div>
-    <div id="savedResults"></div>
-  </div>
-  <script type="module" src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
