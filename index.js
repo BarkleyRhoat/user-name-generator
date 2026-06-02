@@ -19,6 +19,13 @@ let currentAvatar = "";
 
 const usernameEntries = [];
 
+function entryElement(adj, noun, avatar) {
+  const entryP = document.createElement("p");
+  entryP.textContent = `${adj}${noun}`;
+  entryP.insertAdjacentHTML("beforeend", avatar);
+  return entryP;
+}
+
 function checkAndReset() {
   if (currentAdj && currentNoun && currentAvatar) {
     usernameEntries.push({
@@ -28,17 +35,13 @@ function checkAndReset() {
     });
 
     const resultsContainer = document.getElementById("results");
-    const entryP = document.createElement("p");
-    entryP.textContent = `${currentAdj}${currentNoun}`;
-    entryP.insertAdjacentHTML("beforeend", currentAvatar);
+    const savedContainer = document.getElementById("savedResults");
     const savedAdj = currentAdj;
     const savedNoun = currentNoun;
     const savedAvatar = currentAvatar;
+    const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
     entryP.addEventListener("click",(e) => {
-        const savedContainer = document.getElementById("savedResults");
-        const savedP = document.createElement("p");
-        savedP.textContent = `${savedAdj}${savedNoun}`;
-        savedP.insertAdjacentHTML("beforeend", savedAvatar);
+        const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
         savedContainer.appendChild(savedP);
 
         fetch("http://localhost:3000/usernames", {
@@ -105,3 +108,17 @@ avatarBtn.addEventListener("click", () => {
       checkAndReset();
     });
 });
+
+fetch("http://localhost:3000/usernames")
+  .then((res) => res.json())
+  .then((usernames) => {
+    const savedContainer = document.getElementById("savedResults");
+    usernames.forEach((username) => {
+      const savedP = entryElement(
+        username.adjective,
+        username.noun,
+        username.avatar,
+      );
+      savedContainer.appendChild(savedP);
+    });
+  });
