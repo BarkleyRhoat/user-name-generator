@@ -19,6 +19,13 @@ let currentAvatar = "";
 
 const usernameEntries = [];
 
+function entryElement(adj, noun, avatar) {
+  const entryP = document.createElement("p");
+  entryP.textContent = `${adj}${noun}`;
+  entryP.insertAdjacentHTML("beforeend", avatar);
+  return entryP;
+}
+
 function checkAndReset() {
   if (currentAdj && currentNoun && currentAvatar) {
     usernameEntries.push({
@@ -26,12 +33,36 @@ function checkAndReset() {
       noun: currentNoun,
       avatar: currentAvatar,
     });
-    const resultsContainer = document.getElementById("results");
-    const entryP = document.createElement("p");
-    entryP.textContent = `${currentAdj}${currentNoun}`;
-    entryP.insertAdjacentHTML("beforeend", currentAvatar);
 
+    const resultsContainer = document.getElementById("results");
+    const savedContainer = document.getElementById("savedResults");
+    const savedAdj = currentAdj;
+    const savedNoun = currentNoun;
+    const savedAvatar = currentAvatar;
+    const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
+    entryP.addEventListener("click",(e) => {
+      const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
+      savedContainer.appendChild(savedP);
+
+        fetch("http://localhost:3000/usernames", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            adjective: savedAdj,
+            noun: savedNoun,
+            avatar: savedAvatar,
+            fullName: `${savedAdj}${savedNoun}`,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Saved:", data));
+      },
+      { once: true },
+    );
     resultsContainer.appendChild(entryP);
+
     reset();
   }
 }
@@ -56,7 +87,7 @@ function generateWord(btn, options, type) {
     if (type === "adjective") {
       currentAdj = word;
     } else if (type === "noun") {
-      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1); 
+      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1);
     }
     btnSelector.disabled = true;
     checkAndReset();
@@ -67,7 +98,9 @@ generateWord(".nounBtn", nounOptions, "noun");
 
 const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
-  fetch(`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,)
+  fetch(
+    `https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
+  )
     .then((res) => res.text())
     .then((svg) => {
       currentAvatar = svg;
@@ -75,3 +108,17 @@ avatarBtn.addEventListener("click", () => {
       checkAndReset();
     });
 });
+
+fetch("http://localhost:3000/usernames")
+  .then((res) => res.json())
+  .then((usernames) => {
+    const savedContainer = document.getElementById("savedResults");
+    usernames.forEach((username) => {
+      const savedP = entryElement(
+        username.adjective,
+        username.noun,
+        username.avatar,
+      );
+      savedContainer.appendChild(savedP);
+    });
+  });
