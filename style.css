@@ -43,6 +43,7 @@ body {
   background: white;
   border-radius: 8px;
   padding: 1rem;
+  word-wrap: break-word;
   margin: 5px;
   width: 150px;
   text-align: center;
