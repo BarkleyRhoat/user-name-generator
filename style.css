@@ -37,6 +37,7 @@ body {
   gap: 1rem;
   justify-content: center;
 }
+
 #results p {
   font-weight: bold;
   background: white;
