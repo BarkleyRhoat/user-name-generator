@@ -26,7 +26,12 @@ function checkAndReset() {
       noun: currentNoun,
       avatar: currentAvatar,
     });
-    console.log("Entries:", usernameEntries);
+    const resultsContainer = document.getElementById("results");
+    const entryP = document.createElement("p");
+    entryP.textContent = `${currentAdj} ${currentNoun}`;
+    entryP.insertAdjacentHTML("beforeend", currentAvatar);
+
+    resultsContainer.appendChild(entryP);
     reset();
   }
 }
@@ -54,7 +59,6 @@ function generateWord(btn, options, type) {
       currentNoun = word;  
     }
     btnSelector.disabled = true;
-    console.log(`${currentAdj} ${currentNoun} ${currentAvatar}`);
     checkAndReset();
   });
 }
@@ -63,12 +67,11 @@ generateWord(".nounBtn", nounOptions, "noun");
 
 const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
-  fetch("https://api.dicebear.com/10.x/pixel-art/svg")
+  fetch(`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,)
     .then((res) => res.text())
     .then((svg) => {
       currentAvatar = svg;
       avatarBtn.disabled = true;
-      console.log(`${currentAdj} ${currentNoun} ${currentAvatar}`);
       checkAndReset();
     });
 });

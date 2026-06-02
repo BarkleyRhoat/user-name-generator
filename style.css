@@ -1,6 +1,6 @@
 body {
   background-color: #367588;
-  font-family: Arial, sans-serif;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .appContainer {
@@ -10,8 +10,44 @@ body {
 }
 
 #generateBtn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+  font-family: "arial", sans-serif;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#resultscontainer {
+  display: block;
+  gap: 2rem;
+}
+
+#listHeader {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+#results p {
+  font-weight: bold;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 5px;
+  width: 150px;
+  text-align: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+svg {
+  border-radius: 100px;
 }
