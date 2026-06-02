@@ -41,8 +41,8 @@ function checkAndReset() {
     const savedAvatar = currentAvatar;
     const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
     entryP.addEventListener("click",(e) => {
-        const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
-        savedContainer.appendChild(savedP);
+      const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
+      savedContainer.appendChild(savedP);
 
         fetch("http://localhost:3000/usernames", {
           method: "POST",
