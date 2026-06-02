@@ -28,7 +28,7 @@ function checkAndReset() {
     });
     const resultsContainer = document.getElementById("results");
     const entryP = document.createElement("p");
-    entryP.textContent = `${currentAdj} ${currentNoun}`;
+    entryP.textContent = `${currentAdj}${currentNoun}`;
     entryP.insertAdjacentHTML("beforeend", currentAvatar);
 
     resultsContainer.appendChild(entryP);
@@ -56,7 +56,7 @@ function generateWord(btn, options, type) {
     if (type === "adjective") {
       currentAdj = word;
     } else if (type === "noun") {
-      currentNoun = word;  
+      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1); 
     }
     btnSelector.disabled = true;
     checkAndReset();
