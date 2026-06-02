@@ -51,3 +51,12 @@ User story: As a user, I want to hover over a name to see an enlarged version of
 
 - Hovering over a saved name enlarges its avatar
 - Clicking a saved name moves it to the top of the saved names card
+
+## Feature 6 - Toggle Button for Generating Buttons
+
+User story: As a user, I want the three buttons for generating username and avatar to be hidden behind one toggle button.
+
+### Feature 6 Acceptance Criteria
+
+- Three Generating Buttons are behind a toggle.
+- Toggle changes text when it is expanded or not.
