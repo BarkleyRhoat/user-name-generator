@@ -13,11 +13,16 @@ const nounOptions = {
 	},
 };
 
+
 let currentAdj = "";
 let currentNoun = "";
 let currentAvatar = "";
 
 const usernameEntries = [];
+
+const adjBtn = document.querySelector(".adjBtn")
+const nounBtn = document.querySelector('.nounBtn')
+const avatarBtn = document.querySelector('.avatarBtn')
 
 function entryElement(adj, noun, avatar) {
 	const entryP = document.createElement("p");
@@ -84,14 +89,13 @@ function reset() {
 	currentAdj = "";
 	currentNoun = "";
 	currentAvatar = "";
-	document.querySelector(".adjBtn").disabled = false;
-	document.querySelector(".nounBtn").disabled = false;
-	document.querySelector(".avatarBtn").disabled = false;
+	adjBtn.disabled = false;
+	nounBtn.disabled = false;
+	avatarBtn.disabled = false;
 }
 
 function generateWord(btn, options, type) {
-	const btnSelector = document.querySelector(btn);
-	btnSelector.addEventListener("click", () => {
+	btn.addEventListener("click", () => {
 		const word = generateSlug(1, {
 			categories: options.categories,
 			partsOfSpeech: options.partsOfSpeech,
@@ -101,14 +105,13 @@ function generateWord(btn, options, type) {
 		} else if (type === "noun") {
 			currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1);
 		}
-		btnSelector.disabled = true;
+		btn.disabled = true;
 		checkAndReset();
 	});
 }
-generateWord(".adjBtn", adjOptions, "adjective");
-generateWord(".nounBtn", nounOptions, "noun");
+generateWord(adjBtn, adjOptions, "adjective");
+generateWord(nounBtn, nounOptions, "noun");
 
-const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
 	fetch(
 		`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
