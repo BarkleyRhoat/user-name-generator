@@ -28,7 +28,7 @@ function entryElement(adj, noun, avatar) {
 	svg.addEventListener("mouseover", () => {
 		const preview = document.createElement("div");
 		preview.classList.add("avatar-preview");
-		preview.innerHTML = svg.outerHTML;
+		preview.appendChild(svg.cloneNode(true));
 		document.body.appendChild(preview);
 	});
 	svg.addEventListener("mouseout", () => {
