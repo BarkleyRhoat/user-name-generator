@@ -23,6 +23,15 @@ const adjBtn = document.querySelector(".adjBtn")
 const nounBtn = document.querySelector('.nounBtn')
 const avatarBtn = document.querySelector('.avatarBtn')
 
+
+function deleteUsername(id, div) {
+  fetch(`http://localhost:3000/usernames/${id}`, {
+    method: "DELETE",
+
+  })
+    .then(() => div.remove());
+}
+
 function entryElement(adj, noun, avatar, onDelete) {
 	const entryDiv = document.createElement("div");
 	entryDiv.textContent = `${adj}${noun}`;
@@ -38,7 +47,14 @@ function entryElement(adj, noun, avatar, onDelete) {
 	svg.addEventListener("mouseout", () => {
 		const preview = document.querySelector(".avatar-preview");
 		if (preview) preview.remove();
-	});
+  });
+  
+  if (onDelete) {
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", onDelete);
+    entryDiv.appendChild(deleteBtn);
+  }
 	return entryDiv;
 }
 
@@ -50,8 +66,11 @@ function checkAndReset() {
 		const savedNoun = currentNoun;
 		const savedAvatar = currentAvatar;
 		const entryDiv = entryElement(savedAdj, savedNoun, savedAvatar);
-		entryDiv.addEventListener("click", (e) => {
-			const savedDiv = entryElement(savedAdj, savedNoun, savedAvatar);
+    entryDiv.addEventListener("click", (e) => {
+      let usernameId = null; 
+      const savedDiv = entryElement(savedAdj, savedNoun, savedAvatar, () => {
+        if (usernameId) deleteUsername(usernameId, savedDiv)
+      });
 			savedContainer.appendChild(savedDiv);
 
 			if (!usernameEntries.some((entry) => entry.adjective + entry.noun === `${savedAdj}${savedNoun}`)) {
@@ -73,7 +92,10 @@ function checkAndReset() {
 						}),
 					})
 						.then((res) => res.json())
-						.then((data) => console.log("Saved:", data));
+            .then((data) => {
+              usernameId = data.id;
+              console.log("Saved:", data)
+            })
 				}
 			},
 			{ once: true },
@@ -131,7 +153,8 @@ fetch("http://localhost:3000/usernames")
 			const savedDiv = entryElement(
 				username.adjective,
 				username.noun,
-				username.avatar,
+        username.avatar,
+       () => deleteUsername(username.id, savedDiv)
 			);
 			savedContainer.appendChild(savedDiv);
 		});
