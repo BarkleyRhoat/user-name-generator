@@ -1,74 +1,76 @@
 body {
-  background-color: #367588;
-  font-family: "Courier New", Courier, monospace;
+	background-color: #367588;
+	font-family: "Courier New", Courier, monospace;
 }
 
 .appContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #generateBtn {
-  font-family: "arial", sans-serif;
-  font-weight: bold;
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+	font-family: "arial", sans-serif;
+	font-weight: bold;
+	margin-top: 20px;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 #resultsContainer,
 #savedContainer {
-  display: block;
-  gap: 2rem;
+	display: block;
+	gap: 2rem;
 }
 
 #listHeader,
 #savedHeader {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
 }
 
 #results,
 #savedResults {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: center;
 }
 
 #results p,
 #savedResults p {
-  font-weight: bold;
-  background: white;
-  border-radius: 8px;
-  padding: 1rem;
-  word-wrap: break-word;
-  margin: 5px;
-  width: 150px;
-  text-align: center;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+	font-weight: bold;
+	background: white;
+	border-radius: 8px;
+	padding: 1rem;
+	word-wrap: break-word;
+	margin: 5px;
+	width: 150px;
+	text-align: center;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
 }
 
 svg {
-  border-radius: 100px;
+	border-radius: 100px;
 }
 
 .avatar-preview {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
-  z-index: 100;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-  padding: 1rem;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	height: 400px;
+	z-index: 100;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	padding: 1rem;
+  pointer-events: none;
 }
+

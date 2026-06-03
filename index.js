@@ -109,15 +109,13 @@ generateWord(".nounBtn", nounOptions, "noun");
 
 const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
-	fetch(
-		`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
-	)
+	fetch(`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`)
 		.then((res) => res.text())
 		.then((svg) => {
 			currentAvatar = svg;
 			avatarBtn.disabled = true;
 			checkAndReset();
-		});
+    });
 });
 
 fetch("http://localhost:3000/usernames")

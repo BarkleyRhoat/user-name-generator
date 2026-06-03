@@ -43,20 +43,11 @@ User story: As a user, I want to click on a username in the generated names card
 - Saved names are saved in the server and shown on page load
 - The save names card is displayed seperately fromt he generated names card
 
-## Feature 5 - Saved Names Interactions
+## Feature 5 - Hovering and Dragging on the saved usernames
 
-User story: As a user, I want to hover over a name to see an enlarged version of its avatar, and click on a  name to move it to the top of the saved name card, so that I can order my favorites.
+User story: As a user, I want to hover over a name to see an enlarged version of its avatar and be able to drag around saved username cards
 
 ### Feature 5 Acceptance Criteria
 
 - Hovering over a saved name enlarges its avatar
-- Clicking a saved name moves it to the top of the saved names card
-
-## Feature 6 - Toggle Button for Generating Buttons
-
-User story: As a user, I want the three buttons for generating username and avatar to be hidden behind one toggle button.
-
-### Feature 6 Acceptance Criteria
-
-- Three Generating Buttons are behind a toggle.
-- Toggle changes text when it is expanded or not.
+- When you drag a username card it stays in place where you leave it
