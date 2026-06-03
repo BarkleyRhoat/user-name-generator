@@ -43,11 +43,10 @@ User story: As a user, I want to click on a username in the generated names card
 - Saved names are saved in the server and shown on page load
 - The save names card is displayed seperately fromt he generated names card
 
-## Feature 5 - Saved Names Interactions
+## Feature 5 - Hovering on the saved usernames
 
-User story: As a user, I want to hover over a name to see an enlarged version of its avatar, and click on a  name to move it to the top of the saved name card, so that I can order my favorites.
+User story: As a user, I want to hover over a name to see an enlarged version of its avatar.
 
 ### Feature 5 Acceptance Criteria
 
 - Hovering over a saved name enlarges its avatar
-- Clicking a saved name moves it to the top of the saved names card
