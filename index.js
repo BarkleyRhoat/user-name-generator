@@ -22,8 +22,8 @@ const usernameEntries = [];
 function entryElement(adj, noun, avatar) {
 	const entryP = document.createElement("p");
 	entryP.textContent = `${adj}${noun}`;
-  entryP.insertAdjacentHTML("beforeend", avatar);
-  
+	entryP.insertAdjacentHTML("beforeend", avatar);
+
 	const svg = entryP.querySelector("svg");
 	svg.addEventListener("mouseover", () => {
 		const preview = document.createElement("div");
@@ -115,7 +115,7 @@ avatarBtn.addEventListener("click", () => {
 			currentAvatar = svg;
 			avatarBtn.disabled = true;
 			checkAndReset();
-    });
+		});
 });
 
 fetch("http://localhost:3000/usernames")
