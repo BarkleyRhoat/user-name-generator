@@ -1,9 +1,9 @@
 import { generateSlug } from "https://esm.sh/random-word-slugs@0.1.7";
 
 const adjOptions = {
-	partsOfSpeech: ["adjective"],
-	categories: {
-		adjective: ["colors", "emotions", "appearance"],
+  partsOfSpeech: ["adjective"],
+  categories: {
+    adjective: ["colors", "emotions", "appearance"],
 	},
 };
 const nounOptions = {
@@ -40,12 +40,6 @@ function entryElement(adj, noun, avatar) {
 
 function checkAndReset() {
 	if (currentAdj && currentNoun && currentAvatar) {
-		usernameEntries.push({
-			adjective: currentAdj,
-			noun: currentNoun,
-			avatar: currentAvatar,
-		});
-
 		const resultsContainer = document.getElementById("results");
 		const savedContainer = document.getElementById("savedResults");
 		const savedAdj = currentAdj;
@@ -54,22 +48,29 @@ function checkAndReset() {
 		const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
 		entryP.addEventListener("click", (e) => {
 			const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
-      savedContainer.appendChild(savedP);
-      
-				fetch("http://localhost:3000/usernames", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						adjective: savedAdj,
-						noun: savedNoun,
-						avatar: savedAvatar,
-						fullName: `${savedAdj}${savedNoun}`,
-					}),
+			savedContainer.appendChild(savedP);
+
+			if (!usernameEntries.some((entry) => entry.adjective + entry.noun === `${savedAdj}${savedNoun}`)) {
+				usernameEntries.push({
+					adjective: savedAdj,
+					noun: savedNoun,
+					avatar: savedAvatar,
 				})
-					.then((res) => res.json())
-					.then((data) => console.log("Saved:", data));
+					fetch("http://localhost:3000/usernames", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							adjective: savedAdj,
+							noun: savedNoun,
+							avatar: savedAvatar,
+							fullName: `${savedAdj}${savedNoun}`,
+						}),
+					})
+						.then((res) => res.json())
+						.then((data) => console.log("Saved:", data));
+				}
 			},
 			{ once: true },
 		);
