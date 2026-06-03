@@ -13,7 +13,6 @@ const nounOptions = {
 	},
 };
 
-
 let currentAdj = "";
 let currentNoun = "";
 let currentAvatar = "";
@@ -24,12 +23,12 @@ const adjBtn = document.querySelector(".adjBtn")
 const nounBtn = document.querySelector('.nounBtn')
 const avatarBtn = document.querySelector('.avatarBtn')
 
-function entryElement(adj, noun, avatar) {
-	const entryP = document.createElement("p");
-	entryP.textContent = `${adj}${noun}`;
-	entryP.insertAdjacentHTML("beforeend", avatar);
+function entryElement(adj, noun, avatar, onDelete) {
+	const entryDiv = document.createElement("div");
+	entryDiv.textContent = `${adj}${noun}`;
+	entryDiv.insertAdjacentHTML("beforeend", avatar);
 
-	const svg = entryP.querySelector("svg");
+	const svg = entryDiv.querySelector("svg");
 	svg.addEventListener("mouseover", () => {
 		const preview = document.createElement("div");
 		preview.classList.add("avatar-preview");
@@ -40,7 +39,7 @@ function entryElement(adj, noun, avatar) {
 		const preview = document.querySelector(".avatar-preview");
 		if (preview) preview.remove();
 	});
-	return entryP;
+	return entryDiv;
 }
 
 function checkAndReset() {
@@ -50,10 +49,10 @@ function checkAndReset() {
 		const savedAdj = currentAdj;
 		const savedNoun = currentNoun;
 		const savedAvatar = currentAvatar;
-		const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
-		entryP.addEventListener("click", (e) => {
-			const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
-			savedContainer.appendChild(savedP);
+		const entryDiv = entryElement(savedAdj, savedNoun, savedAvatar);
+		entryDiv.addEventListener("click", (e) => {
+			const savedDiv = entryElement(savedAdj, savedNoun, savedAvatar);
+			savedContainer.appendChild(savedDiv);
 
 			if (!usernameEntries.some((entry) => entry.adjective + entry.noun === `${savedAdj}${savedNoun}`)) {
 				usernameEntries.push({
@@ -80,7 +79,7 @@ function checkAndReset() {
 			{ once: true },
 		);
 
-		resultsContainer.appendChild(entryP);
+		resultsContainer.appendChild(entryDiv);
 		reset();
 	}
 }
@@ -129,11 +128,11 @@ fetch("http://localhost:3000/usernames")
 	.then((usernames) => {
 		const savedContainer = document.getElementById("savedResults");
 		usernames.forEach((username) => {
-			const savedP = entryElement(
+			const savedDiv = entryElement(
 				username.adjective,
 				username.noun,
 				username.avatar,
 			);
-			savedContainer.appendChild(savedP);
+			savedContainer.appendChild(savedDiv);
 		});
 	});

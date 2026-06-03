@@ -41,8 +41,8 @@ body {
 	justify-content: center;
 }
 
-#results p,
-#savedResults p {
+#results div,
+#savedResults div {
 	font-weight: bold;
 	background: white;
 	border-radius: 8px;
