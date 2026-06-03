@@ -54,8 +54,8 @@ function checkAndReset() {
 		const entryP = entryElement(savedAdj, savedNoun, savedAvatar);
 		entryP.addEventListener("click", (e) => {
 			const savedP = entryElement(savedAdj, savedNoun, savedAvatar);
-			savedContainer.appendChild(savedP);
-
+      savedContainer.appendChild(savedP);
+      
 				fetch("http://localhost:3000/usernames", {
 					method: "POST",
 					headers: {
@@ -109,7 +109,9 @@ generateWord(".nounBtn", nounOptions, "noun");
 
 const avatarBtn = document.querySelector(".avatarBtn");
 avatarBtn.addEventListener("click", () => {
-	fetch(`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`)
+	fetch(
+		`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
+	)
 		.then((res) => res.text())
 		.then((svg) => {
 			currentAvatar = svg;
