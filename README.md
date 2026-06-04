@@ -1,16 +1,25 @@
 # user-name-generator
 
-An application that will generate a name and avatar.
+## Description
+
+JavaScript project for PCA. This web app allows you to generate random usernames and avatars.
+
+## Built With
+
+- [DiceBear API](https://www.dicebear.com/how-to-use/http-api/)
+- [random-word-slugs](https://www.npmjs.com/package/random-word-slugs)
+- JSON Server
 
 ## Demo
 
 ![Application Demo](./assets/appRecording.gif)
 
+## Features
 
-Application uses and DiceBear API & random-word-slugs npm package
-
-* https://www.dicebear.com/how-to-use/http-api/
-* https://www.npmjs.com/package/random-word-slugs
+- Generate random adjective and nouns for a combined username
+- Generate a avatar to go alone with your username
+- Save usernames you enjoy the most
+- Delete usernames you no longer find appealing
 
 ## Setup
 
