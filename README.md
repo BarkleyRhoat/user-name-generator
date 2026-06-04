@@ -6,11 +6,17 @@ An application that will generate a name and avatar.
 
 ![Application Demo](./assets/appRecording.gif)
 
-
 Application uses and DiceBear API & random-word-slugs npm package
 
 * https://www.dicebear.com/how-to-use/http-api/
 * https://www.npmjs.com/package/random-word-slugs
+
+## Features
+
+* Generate random adjective and nouns for a combined username
+* Generate a avatar to go alone with your username
+* Save usernames you enjoy the most
+* Delete usernames you no longer find appealing
 
 ## Setup
 
