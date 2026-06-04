@@ -80,7 +80,8 @@ function checkAndReset() {
 
 		const previewEntry = entryElement(adj, noun, avatar);
 		previewEntry.addEventListener("click", () => {
-				saveUsername(adj, noun, avatar).then((data) => {
+      saveUsername(adj, noun, avatar)
+        .then((data) => {
 					addSaved(adj, noun, avatar, data.id);
 				});
 			},
@@ -136,4 +137,3 @@ fetchUsername().then((usernames) => {
 		addSaved(adjective, noun, avatar, id);
 	});
 });
-
