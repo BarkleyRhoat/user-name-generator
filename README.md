@@ -2,7 +2,10 @@
 
 An application that will generate a name and avatar.
 
-## What's here
+## Demo
+
+![Application Demo](./assets/appRecording.gif)
+
 
 Application uses and DiceBear API & random-word-slugs npm package
 
