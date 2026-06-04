@@ -50,3 +50,11 @@ User story: As a user, I want to hover over a name to see an enlarged version of
 ### Feature 5 Acceptance Criteria
 
 - Hovering over a saved name enlarges its avatar
+
+## Feature 6 - Deleting Saved Usernames on DOM and in DB
+
+User story: As a user, I want to be able to delete a saved username on the DOM and it persist to the DB
+
+### Feature 6 Acceptance Criteria
+
+- Deleting saved avatar will delete it from the webpage and from the database

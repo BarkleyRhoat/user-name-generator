@@ -13,26 +13,46 @@ const nounOptions = {
 	},
 };
 
+const myApi = "http://localhost:3000/usernames";
+
 let currentAdj = "";
 let currentNoun = "";
 let currentAvatar = "";
 
-const usernameEntries = [];
+const adjBtn = document.querySelector(".adjBtn");
+const nounBtn = document.querySelector(".nounBtn");
+const avatarBtn = document.querySelector(".avatarBtn");
+const resultsContainer = document.getElementById("results");
+const savedContainer = document.getElementById("savedResults");
 
-const adjBtn = document.querySelector(".adjBtn")
-const nounBtn = document.querySelector('.nounBtn')
-const avatarBtn = document.querySelector('.avatarBtn')
-
-
-function deleteUsername(id, div) {
-  fetch(`http://localhost:3000/usernames/${id}`, {
-    method: "DELETE",
-
-  })
-    .then(() => div.remove());
+function fetchUsername() {
+  return fetch(myApi)
+    .then((res) => res.json());
 }
 
-function entryElement(adj, noun, avatar, onDelete) {
+function saveUsername(adj, noun, avatar) {
+  return fetch(myApi, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      adjective: adj,
+      noun: noun,
+      avatar: avatar,
+      fullName: `${adj}${noun}`,
+    })
+  })
+    .then((res) => res.json());
+}
+
+function deleteUsername(id) {
+	return fetch(`${myApi}/${id}`, {
+		method: "DELETE",
+	});
+}
+
+function entryElement(adj, noun, avatar) {
 	const entryDiv = document.createElement("div");
 	entryDiv.textContent = `${adj}${noun}`;
 	entryDiv.insertAdjacentHTML("beforeend", avatar);
@@ -49,59 +69,39 @@ function entryElement(adj, noun, avatar, onDelete) {
 		if (preview) preview.remove();
   });
   
-  if (onDelete) {
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click", onDelete);
-    entryDiv.appendChild(deleteBtn);
-  }
 	return entryDiv;
 }
 
-function checkAndReset() {
-	if (currentAdj && currentNoun && currentAvatar) {
-		const resultsContainer = document.getElementById("results");
-		const savedContainer = document.getElementById("savedResults");
-		const savedAdj = currentAdj;
-		const savedNoun = currentNoun;
-		const savedAvatar = currentAvatar;
-		const entryDiv = entryElement(savedAdj, savedNoun, savedAvatar);
-    entryDiv.addEventListener("click", (e) => {
-      let usernameId = null; 
-      const savedDiv = entryElement(savedAdj, savedNoun, savedAvatar, () => {
-        if (usernameId) deleteUsername(usernameId, savedDiv)
-      });
-			savedContainer.appendChild(savedDiv);
+function addSaved(adj, noun, avatar, id) {
+  const savedDiv = entryElement(adj, noun, avatar);
 
-			if (!usernameEntries.some((entry) => entry.adjective + entry.noun === `${savedAdj}${savedNoun}`)) {
-				usernameEntries.push({
-					adjective: savedAdj,
-					noun: savedNoun,
-					avatar: savedAvatar,
-				})
-					fetch("http://localhost:3000/usernames", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							adjective: savedAdj,
-							noun: savedNoun,
-							avatar: savedAvatar,
-							fullName: `${savedAdj}${savedNoun}`,
-						}),
-					})
-						.then((res) => res.json())
-            .then((data) => {
-              usernameId = data.id;
-              console.log("Saved:", data)
-            })
-				}
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.addEventListener("click", () => {
+    deleteUsername(id)
+      .then(() => savedDiv.remove());
+  })
+  savedDiv.appendChild(deleteBtn);
+  savedContainer.appendChild(savedDiv)
+}
+
+function checkAndReset() {
+  if (currentAdj && currentNoun && currentAvatar) {
+    
+		const adj = currentAdj;
+		const noun = currentNoun;
+		const avatar = currentAvatar;
+
+		const previewEntry = entryElement(adj, noun, avatar);
+		previewEntry.addEventListener("click", () => {
+				saveUsername(adj, noun, avatar).then((data) => {
+					addSaved(adj, noun, avatar, data.id);
+				});
 			},
 			{ once: true },
 		);
 
-		resultsContainer.appendChild(entryDiv);
+		resultsContainer.appendChild(previewEntry);
 		reset();
 	}
 }
@@ -135,7 +135,7 @@ generateWord(nounBtn, nounOptions, "noun");
 
 avatarBtn.addEventListener("click", () => {
 	fetch(
-		`https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=${Math.random()}`,
+		`https://api.dicebear.com/10.x/notionists-neutral/svg?seed=${Math.random()}`,
 	)
 		.then((res) => res.text())
 		.then((svg) => {
@@ -145,17 +145,9 @@ avatarBtn.addEventListener("click", () => {
 		});
 });
 
-fetch("http://localhost:3000/usernames")
-	.then((res) => res.json())
-	.then((usernames) => {
-		const savedContainer = document.getElementById("savedResults");
-		usernames.forEach((username) => {
-			const savedDiv = entryElement(
-				username.adjective,
-				username.noun,
-        username.avatar,
-       () => deleteUsername(username.id, savedDiv)
-			);
-			savedContainer.appendChild(savedDiv);
-		});
+fetchUsername().then((usernames) => {
+	usernames.forEach(({ adjective, noun, avatar, id }) => {
+		addSaved(adjective, noun, avatar, id);
 	});
+});
+
