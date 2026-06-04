@@ -1,19 +1,5 @@
 import { generateSlug } from "https://esm.sh/random-word-slugs@0.1.7";
-
-const adjOptions = {
-  partsOfSpeech: ["adjective"],
-  categories: {
-    adjective: ["colors", "emotions", "appearance"],
-	},
-};
-const nounOptions = {
-	partsOfSpeech: ["noun"],
-	categories: {
-		noun: ["animals", "thing", "food"],
-	},
-};
-
-const myApi = "http://localhost:3000/usernames";
+import { adjOptions, nounOptions, myApi } from "./config.js";
 
 let currentAdj = "";
 let currentNoun = "";
