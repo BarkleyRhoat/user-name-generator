@@ -73,24 +73,24 @@ function addSaved(adj, noun, avatar, id) {
 
 function checkAndReset() {
   if (currentAdj && currentNoun && currentAvatar) {
-    
-		const adj = currentAdj;
-		const noun = currentNoun;
-		const avatar = currentAvatar;
 
-		const previewEntry = entryElement(adj, noun, avatar);
-		previewEntry.addEventListener("click", () => {
+    const adj = currentAdj;
+    const noun = currentNoun;
+    const avatar = currentAvatar;
+
+    const previewEntry = entryElement(adj, noun, avatar);
+    previewEntry.addEventListener("click", () => {
       saveUsername(adj, noun, avatar)
         .then((data) => {
-					addSaved(adj, noun, avatar, data.id);
-				});
-			},
-			{ once: true },
-		);
+          addSaved(adj, noun, avatar, data.id);
+        });
+    },
+      { once: true },
+    );
 
-		resultsContainer.appendChild(previewEntry);
-		reset();
-	}
+    resultsContainer.appendChild(previewEntry);
+    reset();
+  }
 }
 
 function reset() {
@@ -103,37 +103,36 @@ function reset() {
 }
 
 function generateWord(btn, options, type) {
-	btn.addEventListener("click", () => {
-		const word = generateSlug(1, {
-			categories: options.categories,
-			partsOfSpeech: options.partsOfSpeech,
-		});
-		if (type === "adjective") {
-			currentAdj = word;
-		} else if (type === "noun") {
-			currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1);
-		}
-		btn.disabled = true;
-		checkAndReset();
-	});
+  btn.addEventListener("click", () => {
+    const word = generateSlug(1, {
+      categories: options.categories,
+      partsOfSpeech: options.partsOfSpeech,
+    });
+    if (type === "adjective") {
+      currentAdj = word;
+    } else if (type === "noun") {
+      currentNoun = word.slice(0, 1).toUpperCase() + word.slice(1);
+    }
+    btn.disabled = true;
+    checkAndReset();
+  });
 }
 generateWord(adjBtn, adjOptions, "adjective");
 generateWord(nounBtn, nounOptions, "noun");
 
 avatarBtn.addEventListener("click", () => {
-	fetch(
-		`https://api.dicebear.com/10.x/notionists-neutral/svg?seed=${Math.random()}`,
-	)
-		.then((res) => res.text())
-		.then((svg) => {
-			currentAvatar = svg;
-			avatarBtn.disabled = true;
-			checkAndReset();
-		});
+  fetch(`https://api.dicebear.com/10.x/notionists-neutral/svg?seed=${Math.random()}`,)
+    .then((res) => res.text())
+    .then((svg) => {
+      currentAvatar = svg;
+      avatarBtn.disabled = true;
+      checkAndReset();
+    });
 });
 
-fetchUsername().then((usernames) => {
-	usernames.forEach(({ adjective, noun, avatar, id }) => {
-		addSaved(adjective, noun, avatar, id);
-	});
-});
+fetchUsername()
+  .then((usernames) => {
+    usernames.forEach(({ adjective, noun, avatar, id }) => {
+      addSaved(adjective, noun, avatar, id);
+    });
+  });
