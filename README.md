@@ -61,7 +61,7 @@ json-server --watch db.json
 In second terminal, open the app using the VS Code Live Server extension or run
 
 ```bash
-npx live-server
+npx serve
 ```
 
 > **Note:** The `.vscode/settings.json` is configured to ignore `db.json` so Live Server won't reload the page when data is saved.
